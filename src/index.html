@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- typekit -->
+    <script>
+    (function(d) {
+    var config = {
+      kitId: 'rvq5yyp',
+      scriptTimeout: 3000
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+    </script>
+  </head>
+  <body>
+
+    <responsive-child interval=300>
+      <main class="visual">
+        <section class="chatter">
+          <h1>The changing face of refugees in Washington state</h1>
+          <p>
+            Over the last forty years, the makeup of refugees entering Washington state has changed radically, with waves of immigrants from Vietnam, the former Soviet republics, and the Middle East and North Africa making up three major eras since 1979.
+        </section>
+        <button class="switch">
+          <span class="icon">▥</span>
+          <label>Switch view</label>
+        </button>
+        <h2 class="title" data-mode="absolute">
+          <span class="absolute">Number of refugees, by country</span>
+          <span class="relative">Share of refugees, by country</span>
+        </h2>
+        <section class="plot">
+          <aside class="y-max"></aside>
+          <main class="plot-area"></main>
+          <aside class="x-axis"></aside>
+        </section>
+        <ul class="legend"></ul>
+        <section class="details">
+          <h1 class="tease">Choose a column for details</h1>
+        </section>
+        <section class="source">
+          Source: TK
+        </section>
+        <section class="credit"></section>
+      </main>
+    </responsive-child>
+
+    <%
+var sequences = [];
+var titleCase = function(str) {
+  return str.toLowerCase().replace(/(^|\s)\w/g, function(match) { return match.toUpperCase() });
+}
+
+var totals = [];
+var other = [];
+var cutoff = 1000;
+csv.counts.forEach(function(row) {
+  var country = titleCase(row.country);
+  // if (country == "Unknown") return;
+  var sequence = row.total > cutoff ? [] : other;
+  for (var key in row) {
+    if (key.match(/\d+/)) {
+      var year = key * 1 - 1979;
+      var value = row[key] * 1;
+      sequence[year] = (sequence[year] || 0) + value;
+      totals[year] = totals[year] ? totals[year] + value : value;
+    }
+  }
+  if (row.total > cutoff) {
+    sequences.push({
+      country: country,
+      data: sequence
+    });
+  }
+});
+sequences.push({
+  country: "Other",
+  data: other
+});
+sequences.forEach(function(country) {
+  //console.log(country.country);
+  country.data = country.data.map(function(value, i) {
+    return {
+      absolute: value,
+      relative: value / totals[i] * 100
+    };
+  });
+});
+var highest = Math.max.apply(null, totals);
+    %>
+    <script>
+window.refugees = <%= JSON.stringify({ applications: sequences, max: highest }) %>;
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>

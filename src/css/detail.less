@@ -1,0 +1,58 @@
+.details {
+  max-width: 800px;
+
+  h1.tease {
+    text-align: center;
+    background: #EEE;
+    color: #999;
+    font-size: 15px;
+    padding: 5px;
+  }
+
+  h1.year {
+    padding: 0;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  ul.countries {
+    padding: 0;
+    margin: 0 auto;
+    list-style-type: none;
+    font-size: 14px;
+    overflow: hidden;
+    max-width: 400px;
+
+    li {
+      display: block;
+      padding: 4px;
+      border-bottom: 1px dotted #EEE;
+
+      &:nth-child(2n) {
+        background: #F8F8F8;
+      }
+
+      .name {
+        width: 50%;
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      .dot {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        vertical-align: middle;
+        border-radius: 100%;
+      }
+
+      .absolute, .relative {
+        width: 25%;
+        display: inline-block;
+        text-align: right;
+      }
+
+    }
+  }
+}

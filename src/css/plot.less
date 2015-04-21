@@ -1,0 +1,83 @@
+.plot {
+  max-width: 800px;
+  @axis-width: 50px;
+  position: relative;
+  clear: both;
+
+  .plot-area {
+    width: 100%;
+    height: 300px;
+    float: left;
+
+    @media @mobile {
+      float: none;
+      width: 100%;
+    }
+  }
+  
+  .y-max {
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .x-axis {
+    height: 40px;
+    position: relative;
+    clear: both;
+    font-size: 12px;
+
+    @media @mobile {
+      display: none;
+    }
+
+    label.year {
+      display: block;
+      position: absolute;
+      top: 0;
+      -webkit-transform-origin: bottom right;
+      transform-origin: bottom right;
+      -webkit-transform: rotate(-30deg);
+      transform: rotate(-30deg);
+      text-align: right;
+
+      @media @tablet {
+        display: none;
+
+        &.major {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.plot-area {
+  position: relative;
+
+  .item {
+    height: 20px;
+    // min-width: 40px;
+    width: calc(100% / @item-count ~" + 1px");
+    // min-width: 40px;
+    position: absolute;
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    // background-color: gray;
+
+    .selecting& {
+      opacity: .8;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    .animate& {
+      transition-duration: 1s;
+      transition-timing-function: ease-in-out;
+      transition-property: -webkit-transform;
+      transition-property: transform;
+      border: none !important;
+    }
+  }
+}

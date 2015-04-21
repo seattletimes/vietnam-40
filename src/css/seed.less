@@ -1,0 +1,121 @@
+//media queries
+@mobile: ~"(max-width: 480px)";
+@tablet: ~"(max-width: 768px)";
+
+//fonts
+@import "seattletimes";
+
+//variables
+@item-count: 36;
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+responsive-child {
+  display: block;
+}
+
+body {
+  font-family: @df-sans;
+  font-size: 16px;
+}
+
+main.visual {
+  max-width: 800px;
+  border-width: 1px 0;
+  border-color: #CCC;
+  border-style: solid;
+  display: block;
+}
+
+.chatter {
+  h1 {
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  p {
+    font-family: @df-serif;
+  }
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 15px;
+  text-transform: uppercase;
+
+  @media @mobile {
+    text-align: left;
+  }
+
+  .relative {
+    display: none;
+  }
+
+  &[data-mode=relative] {
+    .absolute {
+      display: none;
+    }
+
+    .relative {
+      display: inline;
+    }
+  }
+}
+
+.switch {
+  color: white;
+  background: #d85c42;
+  border: none;
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  float: right;
+  border-radius: 3px;
+
+  &:hover {
+    background: lighten(#d85c42, 20%);
+  }
+
+  @media @mobile {
+    padding: 0 2px;
+  }
+
+  .icon {
+    font-size: 28px;
+    display: none;
+
+    @media @mobile {
+      display: block;
+    }
+  }
+
+  label {
+
+    @media @mobile {
+      display: none;
+    }
+  }
+}
+
+.credit {
+  font-size: 12px;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.source {
+  font-size: 14px;
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+@import "plot";
+@import "detail";
+@import "legend";
