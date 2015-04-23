@@ -2,14 +2,10 @@
 <ul class="countries">
   <% for (var c in data.countries) { var country = data.countries[c]; %>
   <% var name = c.replace(/\s/g, ""); %>
-  <% var blacklist = ["FormerSovietUnion", "Other"]; %>
     <li> 
       <span class="name">
         <span class="dot <%= name %>"></span>
         <%= c %>
-        <% if (blacklist.indexOf(name) == -1) { %>
-        <img class="flag" src="./assets/<%= name.toLowerCase() %>.svg">
-        <% } %>
       </span><span class="absolute"><%= country.absolute.toLocaleString() %></span><span class="relative"><%= country.relative.toFixed(1) %>%</span>
   <% } %>
 </ul>
