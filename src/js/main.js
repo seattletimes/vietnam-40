@@ -15,6 +15,7 @@ var details = dot.template(detailTemplate);
 var app = window.refugees;
 app.mode = "absolute";
 var animationLength = 1000;
+var startYear = 1979;
 
 var yearly = []; //resorted by year for tooltips
 
@@ -111,9 +112,9 @@ app.setup = function() {
   for (var i = 0; i < len; i++) {
     //create a label for the year
     var label = document.createElement("label");
-    var year = i + 1979;
+    var year = i + startYear;
     label.className = "year";
-    label.innerHTML = i + 1979;
+    label.innerHTML = i ? "'" + ((i + startYear) + "").slice(-2) : i + startYear;
     if (year % 5 == 0) {
       label.className += " major";
     }
@@ -168,7 +169,7 @@ plot.addEventListener("click", function(e) {
   sorted.Other = yearly[index].Other;
   
   detailSection.innerHTML = details({
-    year: index + 1979,
+    year: index + startYear,
     countries: sorted
   });
 
